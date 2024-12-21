@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F6FDDA622CCEC38000CC9595 /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F6FDDA612CCEC38000CC9595 /* ClockSliderLibrary */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F6FDDA102CCEC25900CC9595 /* ClockSliderLibraryClientMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClockSliderLibraryClientMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6FDDA622CCEC38000CC9595 /* ClockSliderLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = ClockSliderLibraryClientMac;
 			packageProductDependencies = (
+				F6FDDA612CCEC38000CC9595 /* ClockSliderLibrary */,
 			);
 			productName = ClockSliderLibraryClientMac;
 			productReference = F6FDDA102CCEC25900CC9595 /* ClockSliderLibraryClientMac.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = F6FDDA072CCEC25900CC9595;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary2" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F6FDDA112CCEC25900CC9595 /* Products */;
 			projectDirPath = "";
@@ -319,6 +328,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary2" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../ClockSliderLibrary2;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F6FDDA612CCEC38000CC9595 /* ClockSliderLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ClockSliderLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F6FDDA082CCEC25900CC9595 /* Project object */;
 }
