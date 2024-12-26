@@ -12,16 +12,36 @@ import ClockSliderLibrary
 class ClockFaceView: NSView {
     var underlyingClockFaceView: CrossPlatformClockFaceView?
     
+    //MARK: - initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.underlyingClockFaceView = CrossPlatformClockFaceView(_frame: self.bounds, _ringWidth: 44.0)
+        self.underlyingClockFaceView = CrossPlatformClockFaceView(
+            _frame: self.bounds,
+            _ringWidth: 44.0,
+            _viewModel: ClockFaceViewModel()
+        )
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.underlyingClockFaceView = CrossPlatformClockFaceView(_frame: self.bounds, _ringWidth: 44.0)
+        self.underlyingClockFaceView = CrossPlatformClockFaceView(
+            _frame: self.bounds,
+            _ringWidth: 44.0,
+            _viewModel: ClockFaceViewModel()
+        )
     }
     
+    convenience init(_frame: CGRect,
+                     _ringWidth: CGFloat,
+                     _viewModel: ClockFaceViewModel) {
+        self.init(frame: _frame)
+        self.underlyingClockFaceView = CrossPlatformClockFaceView(
+            _frame: _frame,
+            _ringWidth: _ringWidth,
+            _viewModel: _viewModel)
+    }
+    
+    //MARK:- drawing
     override var isFlipped: Bool {
         return true
     }
