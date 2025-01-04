@@ -22,8 +22,8 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         // change these 2 values to change the UI
-        let sliderStartAngle = 0.0
-        let sliderEndAngle = (3.0 / 2.0) * Double.pi
+        let sliderStartAngle = 0.1 * Double.pi
+        let sliderEndAngle = (0.333333) * Double.pi
         let clockType = ClockType.twentyFourHourClock
         
         // all these are calculated based on above
@@ -47,7 +47,13 @@ class ViewController: NSViewController {
         timeRangeSliderControl.clockFaceTickMarkColor = .black
         timeRangeSliderControl.clockFaceTextColor = .black
         
-        //timeRangeSliderControl.setNeedsDisplay(timeRangeSliderControl.bounds)
+        let startColor = NSColor(red: 0.2, green: 0.2, blue: 1.0, alpha: 1.0)
+        timeRangeSliderControl.firstDayGradientStartColor = startColor
+        timeRangeSliderControl.startThumbColor = startColor
+        
+        let finishColor = NSColor.systemPink
+        timeRangeSliderControl.firstDayGradientFinishColor = finishColor
+        timeRangeSliderControl.finishThumbColor = finishColor
     }
 
     override var representedObject: Any? {

@@ -167,6 +167,16 @@ class TimeRangeSliderControl: NSControl {
     }
     
     /**
+     * The color used in lieu of a thumbnail icon where the user places a finger to
+     * drag the start location of the time range control.
+     */
+    var startThumbColor: NSColor = NSColor.systemBlue {
+        willSet {
+            self.underlyingTimeRangeSliderControl?.startKnobView?.thumbnailColor = newValue.cgColor
+        }
+    }
+    
+    /**
      * The image used for the thumbnail icon where the user places a finger to
      * drag the end location of the time range control.
      * This image should be 42 pixels and circular.
@@ -175,6 +185,16 @@ class TimeRangeSliderControl: NSControl {
     var finishTumbnailImage : NSImage?  {
         willSet {
             self.underlyingTimeRangeSliderControl?.finishTumbnailImage = newValue?.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        }
+    }
+    
+    /**
+     * The color used in lieu of a thumbnail icon where the user places a finger to
+     * drag the end location of the time range control.
+     */
+    var finishThumbColor: NSColor = NSColor.systemBlue {
+        willSet {
+            self.underlyingTimeRangeSliderControl?.finishKnobView?.thumbnailColor = newValue.cgColor
         }
     }
 
@@ -322,7 +342,48 @@ class TimeRangeSliderControl: NSControl {
     
     //MARK: - helpers
     internal func updateThumbLayers() -> Void {
-//        fatalError("updateThumbLayers() not implemented")
+        guard let safeSliderView = self.clockSliderView,
+              let safeStartKnobView = self.startKnobView,
+              let safeFinishKnobView = self.finishKnobView,
+              let safeUnderlyingTimeRangeSliderControl = self.underlyingTimeRangeSliderControl else {
+            return
+        }
+        
+        let startMinutes = safeUnderlyingTimeRangeSliderControl.getStartTime().totalMinutes
+        let finishMinutes = safeUnderlyingTimeRangeSliderControl.getFinishTime().totalMinutes
+        let originForStartSlider = safeSliderView.originForThumbnail(minutes: startMinutes)
+        let originForFinishSlider = safeSliderView.originForThumbnail(minutes: finishMinutes)
+        safeStartKnobView.frame.origin = originForStartSlider
+        safeFinishKnobView.frame.origin = originForFinishSlider
+        
+//        let clockRotationCount = safeUnderlyingTimeRangeSliderControl.getClockRotationCount()
+//        let useFirstRotationColors = (clockRotationCount == .first)
+//        let finishColor = useFirstRotationColors ? self.firstDayGradientFinishColor : self.secondDayGradientFinishColor
+        
+//        let sliderEndAngle = safeUnderlyingTimeRangeSliderControl.getSliderEndAngle()
+//        safeFinishKnobView.setDrawableEndAngle(sliderEndAngle)
+//        self.finishThumbColor = finishColor
+        safeFinishKnobView.setNeedsDisplay(safeFinishKnobView.bounds)
+        safeStartKnobView.setNeedsDisplay(safeStartKnobView.bounds)
+        
+        // drawing order should take into account which end is highlighted
+        // note: last drawn is on top (higher Z-index)
+        if ((safeUnderlyingTimeRangeSliderControl.viewModel.lastDraggedThumbKnob == HighlightedKnob.finish) &&
+            (safeUnderlyingTimeRangeSliderControl.viewModel.thumbWithHigherZIndex != HighlightedKnob.finish)) {
+            safeFinishKnobView.removeFromSuperview()
+            safeStartKnobView.removeFromSuperview()
+            self.addSubview(safeStartKnobView)
+            self.addSubview(safeFinishKnobView)
+            safeUnderlyingTimeRangeSliderControl.viewModel.thumbWithHigherZIndex = HighlightedKnob.finish
+        }
+        else if ((safeUnderlyingTimeRangeSliderControl.viewModel.lastDraggedThumbKnob == HighlightedKnob.start) &&
+            (safeUnderlyingTimeRangeSliderControl.viewModel.thumbWithHigherZIndex != HighlightedKnob.start)) {
+            safeFinishKnobView.removeFromSuperview()
+            safeStartKnobView.removeFromSuperview()
+            self.addSubview(safeFinishKnobView)
+            self.addSubview(safeStartKnobView)
+            safeUnderlyingTimeRangeSliderControl.viewModel.thumbWithHigherZIndex = HighlightedKnob.start
+        }
     }
     
     //MARK: - drawing
