@@ -10,25 +10,9 @@ import Cocoa
 import ClockSliderLibrary
 
 class ThumbnailView: NSView {
-    var underlyingThumbnailView: CrossPlatformThumbnailView?
+    var underlyingThumbnailView: CrossPlatformThumbnailView
     
-    init(_frame: CGRect,
-         _ringWidth: CGFloat,
-         _clockRadius: CGFloat,
-         _thumnailImage: NSImage? = nil,
-         _thumbnailColor: NSColor? = nil) {
-        super.init(frame: _frame)
-        
-        var thumbnailRect = _frame
-        let thumnailImage: CGImage? = _thumnailImage?.cgImage(forProposedRect: &thumbnailRect, context: nil, hints: nil)
-        let thumbnailColor: CGColor? = _thumbnailColor?.cgColor
-        underlyingThumbnailView = CrossPlatformThumbnailView(_frame: _frame,
-                                                             _ringWidth: _ringWidth,
-                                                             _clockRadius: _clockRadius,
-                                                             _thumbnailImage: thumnailImage,
-                                                             _thumbnailColor: thumbnailColor)
-    }
-    
+    //MARK:- initialization
     override init(frame: CGRect) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,12 +21,30 @@ class ThumbnailView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(_frame: CGRect,
+         _ringWidth: CGFloat,
+         _clockRadius: CGFloat,
+         _underlyingThumbnailView: CrossPlatformThumbnailView,
+         _thumnailImage: NSImage? = nil,
+         _thumbnailColor: NSColor? = nil
+    ) {
+        var thumbnailRect = _frame
+        let thumnailImage: CGImage? = _thumnailImage?.cgImage(forProposedRect: &thumbnailRect, context: nil, hints: nil)
+        let thumbnailColor: CGColor? = _thumbnailColor?.cgColor
+        underlyingThumbnailView = _underlyingThumbnailView
+        underlyingThumbnailView.thumbnailImage = thumnailImage
+        underlyingThumbnailView.thumbnailColor = thumbnailColor
+        
+        super.init(frame: _frame)
+    }
+
+    //MARK:- Drawing
     override var isFlipped: Bool {
         return true
     }
     
     func setDrawableEndAngle(_ endAngle: CGFloat) {
-        underlyingThumbnailView?.drawableEndAngle = endAngle
+        underlyingThumbnailView.drawableEndAngle = endAngle
         self.setNeedsDisplay(self.bounds)
     }
     
@@ -50,11 +52,10 @@ class ThumbnailView: NSView {
         super.draw(dirtyRect)
         let safeRect = self.bounds
                 
-        guard let ctx = NSGraphicsContext.current?.cgContext,
-              let underlyingView = self.underlyingThumbnailView else {
+        guard let ctx = NSGraphicsContext.current?.cgContext else {
             return
         }
         
-        underlyingView.draw(safeRect, context: ctx)
+        self.underlyingThumbnailView.draw(safeRect, context: ctx)
     }
 }

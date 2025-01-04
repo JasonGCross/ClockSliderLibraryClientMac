@@ -32,57 +32,22 @@ class ViewController: NSViewController {
         let sliderStartTime =  TimeOfDayModel.timeModelFromMinutes(startMinutes)
         let sliderEndTime = TimeOfDayModel.timeModelFromMinutes(endMinutes)
         
-//        var showNewVersion = true
-////        showNewVersion = false
-//        
-//        if (showNewVersion) {
-            timeRangeSliderControl = TimeRangeSliderControl(
-                _frame: customViewContainer.bounds,
-                _ringWidth: ringWidth,
-                _clockType: clockType,
-                _timeOfDay: TimeOfDayModel.now,
-                _sliderStartTime: sliderStartTime,
-                _sliderEndTime: sliderEndTime)
-            self.customViewContainer.addSubview(timeRangeSliderControl)
-//        }
-//        else {
-//            self.clockFaceView = ClockFaceView(frame: customViewContainer.bounds)
-//            self.clockSliderView = ClockSliderView(
-//                _frame: self.customViewContainer.bounds,
-//                _ringWidth: ringWidth,
-//                _sliderStartAngle: sliderStartAngle,
-//                _sliderEndAngle: sliderEndAngle,
-//                _clockType: clockType,
-//                _clockRotationCount: ClockRotationCount.first)
-//            
-//            let diameter = CGFloat(fminf(Float(view.frame.size.width),
-//                                         Float(view.frame.size.height)))
-//            let clockRadius = diameter / 2.0
-//            self.timeRangeSliderControl = TimeRangeSliderControl(frame: customViewContainer.bounds)
-//            
-//            let startThumbnailOrigin = self.clockSliderView.originForThumbnail(minutes:startMinutes)
-//            let startThumbnailFrame = CGRect(x: startThumbnailOrigin.x, y: startThumbnailOrigin.y, width: ringWidth, height: ringWidth)
-//            
-//            self.startKnobView = ThumbnailView.init(_frame: startThumbnailFrame,
-//                                                    _ringWidth: ringWidth,
-//                                                    _clockRadius: clockRadius,
-//                                                    _thumbnailColor: NSColor.red)
-//            self.startKnobView.setDrawableEndAngle(sliderStartAngle)
-//            
-//            let finishThumbnailOrigin = self.clockSliderView.originForThumbnail(minutes:endMinutes)
-//            let finishThumbnailFrame = CGRect(x: finishThumbnailOrigin.x, y: finishThumbnailOrigin.y, width: ringWidth, height: ringWidth)
-//            self.finishKnobView = ThumbnailView.init(_frame: finishThumbnailFrame,
-//                                                     _ringWidth: ringWidth,
-//                                                     _clockRadius: clockRadius,
-//                                                     _thumbnailColor: NSColor.green)
-//            self.finishKnobView.setDrawableEndAngle(sliderEndAngle)
-//            
-//            self.customViewContainer.addSubview(timeRangeSliderControl)
-//            self.timeRangeSliderControl.addSubview(self.clockFaceView)
-//            self.timeRangeSliderControl.addSubview(self.clockSliderView)
-//            self.timeRangeSliderControl.addSubview(self.startKnobView)
-//            self.timeRangeSliderControl.addSubview(self.finishKnobView)
-//        }
+        timeRangeSliderControl = TimeRangeSliderControl(
+            _frame: customViewContainer.bounds,
+            _ringWidth: ringWidth,
+            _clockType: clockType,
+            _timeOfDay: TimeOfDayModel.now,
+            _sliderStartTime: sliderStartTime,
+            _sliderEndTime: sliderEndTime)
+        self.customViewContainer.addSubview(timeRangeSliderControl)
+        
+        timeRangeSliderControl.clockContainerBackgroundColor = .systemGray
+        timeRangeSliderControl.clockFaceBackgroundColor = .white
+        timeRangeSliderControl.clockFaceHandsColor = .black
+        timeRangeSliderControl.clockFaceTickMarkColor = .black
+        timeRangeSliderControl.clockFaceTextColor = .black
+        
+        //timeRangeSliderControl.setNeedsDisplay(timeRangeSliderControl.bounds)
     }
 
     override var representedObject: Any? {

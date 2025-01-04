@@ -10,35 +10,27 @@ import Cocoa
 import ClockSliderLibrary
 
 class ClockFaceView: NSView {
-    var underlyingClockFaceView: CrossPlatformClockFaceView?
+    var underlyingClockFaceView: CrossPlatformClockFaceView
     
     //MARK: - initialization
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.underlyingClockFaceView = CrossPlatformClockFaceView(
-            _frame: self.bounds,
-            _ringWidth: 44.0,
-            _viewModel: ClockFaceViewModel()
-        )
+        fatalError("init(coder:) has not been implemented")
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.underlyingClockFaceView = CrossPlatformClockFaceView(
-            _frame: self.bounds,
-            _ringWidth: 44.0,
-            _viewModel: ClockFaceViewModel()
-        )
+        fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(_frame: CGRect,
+    init(_frame: CGRect,
                      _ringWidth: CGFloat,
-                     _viewModel: ClockFaceViewModel) {
-        self.init(frame: _frame)
-        self.underlyingClockFaceView = CrossPlatformClockFaceView(
-            _frame: _frame,
-            _ringWidth: _ringWidth,
-            _viewModel: _viewModel)
+                     _viewModel: ClockFaceViewModel,
+                     _underlyingClockFaceView : CrossPlatformClockFaceView
+    ) {
+        self.underlyingClockFaceView = _underlyingClockFaceView
+        self.underlyingClockFaceView.ringWidth = _ringWidth
+        self.underlyingClockFaceView.viewModel = _viewModel
+        
+        super.init(frame: _frame)
     }
     
     //MARK:- drawing
@@ -50,11 +42,10 @@ class ClockFaceView: NSView {
         super.draw(dirtyRect)
         let safeRect = self.bounds
                 
-        guard let ctx = NSGraphicsContext.current?.cgContext,
-              let underlyingView = self.underlyingClockFaceView else {
+        guard let ctx = NSGraphicsContext.current?.cgContext else {
             return
         }
         
-        underlyingView.draw(safeRect, context: ctx)
+        self.underlyingClockFaceView.draw(safeRect, context: ctx)
     }
 }
