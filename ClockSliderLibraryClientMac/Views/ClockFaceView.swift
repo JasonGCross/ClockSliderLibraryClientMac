@@ -22,13 +22,11 @@ class ClockFaceView: NSView {
     }
     
     init(_frame: CGRect,
-                     _ringWidth: CGFloat,
-                     _viewModel: ClockFaceViewModel,
-                     _underlyingClockFaceView : CrossPlatformClockFaceView
+         _ringWidth: CGFloat,
+         _underlyingClockFaceView : CrossPlatformClockFaceView
     ) {
         self.underlyingClockFaceView = _underlyingClockFaceView
         self.underlyingClockFaceView.ringWidth = _ringWidth
-        self.underlyingClockFaceView.viewModel = _viewModel
         
         super.init(frame: _frame)
     }

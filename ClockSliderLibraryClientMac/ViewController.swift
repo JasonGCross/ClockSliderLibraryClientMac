@@ -22,9 +22,9 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         // change these 2 values to change the UI
-        let sliderStartAngle = 0.1 * Double.pi
-        let sliderEndAngle = (0.333333) * Double.pi
-        let clockType = ClockType.twentyFourHourClock
+        let sliderStartAngle = 0 * Double.pi
+        let sliderEndAngle = (1.0) * Double.pi
+        let clockType = ClockType.twelveHourClock
         
         // all these are calculated based on above
         let startMinutes = Int(clockType.minutesFromAngle(sliderStartAngle))

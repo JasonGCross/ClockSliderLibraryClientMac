@@ -275,21 +275,29 @@ class TimeRangeSliderControl: NSControl {
         _sliderEndTime: TimeOfDayModel) {
             self.init(frame: _frame)
             
+            let screenScale = NSScreen.main?.backingScaleFactor ?? 1.0
             self.underlyingTimeRangeSliderControl = CrossPlatformTimeRangeSliderControl(
                 _frame: _frame,
                 _ringWidth: _ringWidth,
                 _clockType: _clockType,
                 _timeOfDay: _timeOfDay,
                 _sliderStartTime: _sliderStartTime,
-                _sliderEndTime: _sliderEndTime)
+                _sliderEndTime: _sliderEndTime,
+                _screenScale: screenScale
+            )
+            
+            // access the 4 underlying (cross-platform) views and pass these to the AppKit views
+            // using dependency injection
+            let underlyingClockFaceView = self.underlyingTimeRangeSliderControl!.clockFaceView!
+            let underlyingClockSliderView = self.underlyingTimeRangeSliderControl!.clockSliderView!
+            let underlyingStartKnobView = self.underlyingTimeRangeSliderControl!.startKnobView!
+            let underlyingFinishKnobView = self.underlyingTimeRangeSliderControl!.finishKnobView!
             
             // the inner circle with the hands, ticks, and numbers
-            let clockFaceViewModel = self.underlyingTimeRangeSliderControl!.viewModel.clockFaceViewModel
             let clockFaceView = ClockFaceView(
                 _frame: _frame,
                 _ringWidth: _ringWidth,
-                _viewModel: clockFaceViewModel,
-                _underlyingClockFaceView: self.underlyingTimeRangeSliderControl!.clockFaceView!
+                _underlyingClockFaceView: underlyingClockFaceView
             )
             self.addSubview(clockFaceView)
             self.clockFaceView = clockFaceView
@@ -303,7 +311,7 @@ class TimeRangeSliderControl: NSControl {
                 _sliderEndAngle: finishAngle,
                 _clockType: _clockType,
                 _clockRotationCount: .first,
-                _underlyingClockSliderView: self.underlyingTimeRangeSliderControl!.clockSliderView!
+                _underlyingClockSliderView: underlyingClockSliderView
             )
             self.addSubview(clockSliderView)
             self.clockSliderView = clockSliderView
@@ -318,7 +326,7 @@ class TimeRangeSliderControl: NSControl {
                 _frame: startThumbnailFrame,
                 _ringWidth: _ringWidth,
                 _clockRadius: clockRadius,
-                _underlyingThumbnailView: self.underlyingTimeRangeSliderControl!.startKnobView!,
+                _underlyingThumbnailView: underlyingStartKnobView,
                 _thumbnailColor: NSColor.red
             )
             
@@ -332,12 +340,15 @@ class TimeRangeSliderControl: NSControl {
                 _frame: finishThumbnailFrame,
                 _ringWidth: _ringWidth,
                 _clockRadius: clockRadius,
-                _underlyingThumbnailView: self.underlyingTimeRangeSliderControl!.finishKnobView!,
+                _underlyingThumbnailView: underlyingFinishKnobView,
                 _thumbnailColor: NSColor.green
             )
             self.addSubview(finishKnobView)
             self.finishKnobView = finishKnobView
             self.finishKnobView?.setDrawableEndAngle(finishAngle)
+            
+            let pan = NSPanGestureRecognizer(target: self, action: #selector(pan))
+            self.addGestureRecognizer(pan)
     }
     
     //MARK: - helpers
@@ -414,5 +425,36 @@ class TimeRangeSliderControl: NSControl {
         
         // the thumbs
         self.updateThumbLayers()
+    }
+    
+    //MARK: - touch handling
+    //*************************************************************************
+      
+    @objc func pan(pan: NSClickGestureRecognizer) {
+        guard let viewModel = self.underlyingTimeRangeSliderControl?.viewModel else {
+            return
+        }
+        
+        let location: NSPoint = pan.location(in: self)
+        
+        switch pan.state {
+        case .began:
+            viewModel.beginTracking(at: location)
+            break
+        case .changed:
+            viewModel.continueTracking(location: location)
+            break
+        case .ended:
+            viewModel.endTracking(location: location)
+            // this line makes this control act like a control,
+            // sending a message via an IBAction
+            // when the appropriate event occurs
+            self.sendAction(self.action, to: self.target)
+            break
+        default:
+            break
+        }
+        
+        self.setNeedsDisplay(self.bounds)
     }
 }

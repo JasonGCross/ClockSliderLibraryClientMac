@@ -32,10 +32,13 @@ class ThumbnailView: NSView {
         let thumnailImage: CGImage? = _thumnailImage?.cgImage(forProposedRect: &thumbnailRect, context: nil, hints: nil)
         let thumbnailColor: CGColor? = _thumbnailColor?.cgColor
         underlyingThumbnailView = _underlyingThumbnailView
+        
+        super.init(frame: _frame)
         underlyingThumbnailView.thumbnailImage = thumnailImage
         underlyingThumbnailView.thumbnailColor = thumbnailColor
         
-        super.init(frame: _frame)
+        // need to se the CocoaCocoaTouchViewInterface view delegate for the touch gestures to work
+        underlyingThumbnailView.viewModel.viewDelegate = self
     }
 
     //MARK:- Drawing
@@ -57,5 +60,11 @@ class ThumbnailView: NSView {
         }
         
         self.underlyingThumbnailView.draw(safeRect, context: ctx)
+    }
+}
+
+extension ThumbnailView: CocoaCocoaTouchViewInterface {
+    public func touchPointIsInsideThisView(_ touchPoint: CGPoint) -> Bool {
+        return self.frame.contains(touchPoint)
     }
 }

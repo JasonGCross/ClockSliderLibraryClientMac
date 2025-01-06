@@ -29,17 +29,7 @@ class ClockSliderView: NSView {
          _clockRotationCount: ClockRotationCount,
          _underlyingClockSliderView: CrossPlatformClockSliderView) {
         
-        let screenScale = NSScreen.main?.backingScaleFactor ?? 1.0
-        let viewModel = ClockSliderViewModel(
-            _frame: _frame,
-            _clockType: _clockType,
-            _ringWidth: _ringWidth,
-            _sliderStartAngle: _sliderStartAngle,
-            _sliderEndAngle: _sliderEndAngle,
-            _clockRotationCount: _clockRotationCount,
-            _screenScale: screenScale)
         underlyingClockSliderView = _underlyingClockSliderView
-        underlyingClockSliderView.viewModel = viewModel
         
         super.init(frame: _frame)
     }
