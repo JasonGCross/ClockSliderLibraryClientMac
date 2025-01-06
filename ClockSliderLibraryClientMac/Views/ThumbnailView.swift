@@ -46,11 +46,6 @@ class ThumbnailView: NSView {
         return true
     }
     
-    func setDrawableEndAngle(_ endAngle: CGFloat) {
-        underlyingThumbnailView.drawableEndAngle = endAngle
-        self.setNeedsDisplay(self.bounds)
-    }
-    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         let safeRect = self.bounds

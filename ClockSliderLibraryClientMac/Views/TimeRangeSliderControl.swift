@@ -303,7 +303,8 @@ class TimeRangeSliderControl: NSControl {
             self.clockFaceView = clockFaceView
         
             // the outer ring with a track for sliding
-            let (startAngle, finishAngle) = self.underlyingTimeRangeSliderControl!.viewModel.calculateSliderStartAndFinishAngles()
+            let startAngle = self.underlyingTimeRangeSliderControl!.viewModel.getDrawableStartAngle()
+            let finishAngle = self.underlyingTimeRangeSliderControl!.viewModel.getDrawableEndAngle()
             let clockSliderView = ClockSliderView(
                 _frame: _frame,
                 _ringWidth: _ringWidth,
@@ -332,7 +333,6 @@ class TimeRangeSliderControl: NSControl {
             
             self.addSubview(startKnobView)
             self.startKnobView = startKnobView
-            self.startKnobView?.setDrawableEndAngle(startAngle)
         
             let finishThumbnailOrigin = clockSliderView.originForThumbnail(minutes:_sliderEndTime.totalMinutes)
             let finishThumbnailFrame = CGRect(x: finishThumbnailOrigin.x, y: finishThumbnailOrigin.y, width: _ringWidth, height: _ringWidth)
@@ -345,7 +345,6 @@ class TimeRangeSliderControl: NSControl {
             )
             self.addSubview(finishKnobView)
             self.finishKnobView = finishKnobView
-            self.finishKnobView?.setDrawableEndAngle(finishAngle)
             
             let pan = NSPanGestureRecognizer(target: self, action: #selector(pan))
             self.addGestureRecognizer(pan)
