@@ -294,18 +294,16 @@ class TimeRangeSliderControl: NSControl {
             let underlyingFinishKnobView = self.underlyingTimeRangeSliderControl!.finishKnobView!
             
             // the inner circle with the hands, ticks, and numbers
-            let clockFaceView = ClockFaceView(
+            self.clockFaceView = ClockFaceView(
                 _frame: _frame,
                 _ringWidth: _ringWidth,
                 _underlyingClockFaceView: underlyingClockFaceView
             )
-            self.addSubview(clockFaceView)
-            self.clockFaceView = clockFaceView
         
             // the outer ring with a track for sliding
             let startAngle = self.underlyingTimeRangeSliderControl!.viewModel.getDrawableStartAngle()
             let finishAngle = self.underlyingTimeRangeSliderControl!.viewModel.getDrawableEndAngle()
-            let clockSliderView = ClockSliderView(
+            self.clockSliderView = ClockSliderView(
                 _frame: _frame,
                 _ringWidth: _ringWidth,
                 _sliderStartAngle: startAngle,
@@ -314,37 +312,35 @@ class TimeRangeSliderControl: NSControl {
                 _clockRotationCount: .first,
                 _underlyingClockSliderView: underlyingClockSliderView
             )
-            self.addSubview(clockSliderView)
-            self.clockSliderView = clockSliderView
             
             // the sliders along the track
             let diameter = CGFloat(fminf(Float(frame.size.width),
                                          Float(frame.size.height)))
             let clockRadius = diameter / 2.0
-            let startThumbnailOrigin = clockSliderView.originForThumbnail(minutes:_sliderStartTime.totalMinutes)
+            let startThumbnailOrigin = clockSliderView!.originForThumbnail(minutes:_sliderStartTime.totalMinutes)
             let startThumbnailFrame = CGRect(x: startThumbnailOrigin.x, y: startThumbnailOrigin.y, width: _ringWidth, height: _ringWidth)
-            let startKnobView = ThumbnailView(
+            self.startKnobView = ThumbnailView(
                 _frame: startThumbnailFrame,
                 _ringWidth: _ringWidth,
                 _clockRadius: clockRadius,
                 _underlyingThumbnailView: underlyingStartKnobView,
                 _thumbnailColor: NSColor.red
             )
-            
-            self.addSubview(startKnobView)
-            self.startKnobView = startKnobView
         
-            let finishThumbnailOrigin = clockSliderView.originForThumbnail(minutes:_sliderEndTime.totalMinutes)
+            let finishThumbnailOrigin = clockSliderView!.originForThumbnail(minutes:_sliderEndTime.totalMinutes)
             let finishThumbnailFrame = CGRect(x: finishThumbnailOrigin.x, y: finishThumbnailOrigin.y, width: _ringWidth, height: _ringWidth)
-            let finishKnobView = ThumbnailView(
+            self.finishKnobView = ThumbnailView(
                 _frame: finishThumbnailFrame,
                 _ringWidth: _ringWidth,
                 _clockRadius: clockRadius,
                 _underlyingThumbnailView: underlyingFinishKnobView,
                 _thumbnailColor: NSColor.green
             )
-            self.addSubview(finishKnobView)
-            self.finishKnobView = finishKnobView
+            
+            self.addSubview(clockFaceView!)
+            self.addSubview(clockSliderView!)
+            self.addSubview(startKnobView!)
+            self.addSubview(finishKnobView!)
             
             let pan = NSPanGestureRecognizer(target: self, action: #selector(pan))
             self.addGestureRecognizer(pan)
