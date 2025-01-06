@@ -259,21 +259,21 @@ class TimeRangeSliderControl: NSControl {
     
     //MARK:- initialization
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        fatalError("init(coder:) has not been implemented")
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(
+    init(
         _frame: CGRect,
         _ringWidth: CGFloat,
         _clockType: ClockType,
         _timeOfDay: TimeOfDayModel,
         _sliderStartTime: TimeOfDayModel,
         _sliderEndTime: TimeOfDayModel) {
-            self.init(frame: _frame)
+            super.init(frame: _frame)
             
             let screenScale = NSScreen.main?.backingScaleFactor ?? 1.0
             self.underlyingTimeRangeSliderControl = CrossPlatformTimeRangeSliderControl(

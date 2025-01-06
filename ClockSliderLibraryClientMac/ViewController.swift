@@ -12,10 +12,6 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var customViewContainer: NSView!
     var timeRangeSliderControl: TimeRangeSliderControl!
-    var clockFaceView: ClockFaceView!
-    var clockSliderView: ClockSliderView!
-    var startKnobView: ThumbnailView!
-    var finishKnobView: ThumbnailView!
     let ringWidth: CGFloat = 44.0
 
     override func viewDidLoad() {
