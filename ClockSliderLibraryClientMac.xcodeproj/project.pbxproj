@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F60629EC2D5B2E9700C7D39E /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F60629EB2D5B2E9700C7D39E /* ClockSliderLibrary */; };
-		F60629EF2D5B2EEE00C7D39E /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F60629EE2D5B2EEE00C7D39E /* ClockSliderLibrary */; };
-		F60629F22D5B2F5400C7D39E /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F60629F12D5B2F5400C7D39E /* ClockSliderLibrary */; };
+		F6406E5A2D5B435300790146 /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F6406E592D5B435300790146 /* ClockSliderLibrary */; };
 		F6FDDA622CCEC38000CC9595 /* ClockSliderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F6FDDA612CCEC38000CC9595 /* ClockSliderLibrary */; };
 /* End PBXBuildFile section */
 
@@ -30,9 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F60629EC2D5B2E9700C7D39E /* ClockSliderLibrary in Frameworks */,
-				F60629EF2D5B2EEE00C7D39E /* ClockSliderLibrary in Frameworks */,
-				F60629F22D5B2F5400C7D39E /* ClockSliderLibrary in Frameworks */,
+				F6406E5A2D5B435300790146 /* ClockSliderLibrary in Frameworks */,
 				F6FDDA622CCEC38000CC9595 /* ClockSliderLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,9 +73,7 @@
 			name = ClockSliderLibraryClientMac;
 			packageProductDependencies = (
 				F6FDDA612CCEC38000CC9595 /* ClockSliderLibrary */,
-				F60629EB2D5B2E9700C7D39E /* ClockSliderLibrary */,
-				F60629EE2D5B2EEE00C7D39E /* ClockSliderLibrary */,
-				F60629F12D5B2F5400C7D39E /* ClockSliderLibrary */,
+				F6406E592D5B435300790146 /* ClockSliderLibrary */,
 			);
 			productName = ClockSliderLibraryClientMac;
 			productReference = F6FDDA102CCEC25900CC9595 /* ClockSliderLibraryClientMac.app */;
@@ -110,7 +104,7 @@
 			mainGroup = F6FDDA072CCEC25900CC9595;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F60629F02D5B2F5300C7D39E /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */,
+				F6406E582D5B435300790146 /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F6FDDA112CCEC25900CC9595 /* Products */;
@@ -339,22 +333,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		F60629F02D5B2F5300C7D39E /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */ = {
+		F6406E582D5B435300790146 /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ClockSliderLibrary;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F60629EB2D5B2E9700C7D39E /* ClockSliderLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ClockSliderLibrary;
-		};
-		F60629EE2D5B2EEE00C7D39E /* ClockSliderLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ClockSliderLibrary;
-		};
-		F60629F12D5B2F5400C7D39E /* ClockSliderLibrary */ = {
+		F6406E592D5B435300790146 /* ClockSliderLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ClockSliderLibrary;
 		};
