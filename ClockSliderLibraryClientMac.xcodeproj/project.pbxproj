@@ -101,7 +101,7 @@
 			mainGroup = F6FDDA072CCEC25900CC9595;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary2" */,
+				F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F6FDDA112CCEC25900CC9595 /* Products */;
@@ -330,9 +330,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary2" */ = {
+		F6FDDA602CCEC38000CC9595 /* XCLocalSwiftPackageReference "../ClockSliderLibrary" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../ClockSliderLibrary2;
+			relativePath = ../ClockSliderLibrary;
 		};
 /* End XCLocalSwiftPackageReference section */
 
